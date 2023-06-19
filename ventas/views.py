@@ -568,29 +568,28 @@ def detalle_ver(request, DetalleCotizacion_id):
 def detalle_save(request):
     if request.method == 'POST':
         cotizacion_id = request.POST.get('cotizacion')
-        cancha_id = request.POST.get('cancha')
         fecha_inicio = request.POST.get('fecha_inicio')
         fecha_fin = request.POST.get('fecha_fin')
-        
-        cotizacion = Cotizacion.objects.get(pk=cotizacion_id)
-        cancha = Cancha.objects.get(pk=cancha_id)
-        
+        total = request.POST.get('total')
+        observacion = request.POST.get('observacion')
+
+        cotizacion = get_object_or_404(Cotizacion, pk=cotizacion_id)
+
         detalle_cotizacion = DetalleCotizacion(
             cotizacion=cotizacion,
-            cancha=cancha,
             fecha_inicio=fecha_inicio,
-            fecha_fin=fecha_fin
+            fecha_fin=fecha_fin,
+            total=total,
+            observacion=observacion
         )
         detalle_cotizacion.save()
-        
-        messages.add_message(request, messages.INFO, 'Detalle de cotización guardado exitosamente')
-        return redirect('detalle_list')
-    
-    else:
-        messages.add_message(request, messages.INFO, 'Error en el método de envío')
-        return redirect('check_group_main')
 
-from django.core.paginator import Paginator
+        messages.success(request, 'Detalle de cotización guardado exitosamente')
+        return redirect('detalle_list')
+
+    else:
+        messages.error(request, 'Error en el método de envío')
+        return redirect('check_group_main')
 
 @login_required
 def detalle_list(request, page=None, search=None):
