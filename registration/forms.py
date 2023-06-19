@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group
 from .models import Profile
 
 class UserCreationFormWithEmail(UserCreationForm):
-    email = forms.EmailField(required=True, help_text="Requerido, 254 caracteres como máximo y debe ser válido")
+    email = forms.EmailField(required=True, help_text="aaaaaaaaaaaaaaaaaaaaa")
 
     class Meta:
         model = User
