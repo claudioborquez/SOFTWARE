@@ -1,7 +1,6 @@
 from django.contrib.auth.models import Group, User
 from django.db import models
 from django.core.exceptions import ValidationError
-from inventario.models import Cancha, Reserva
 from decimal import Decimal
 
 
@@ -79,6 +78,8 @@ class Cotizacion(models.Model):
     fecha_creacion = models.DateTimeField()
     nombre = models.CharField(max_length=100)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    materiales= models.CharField(max_length=200)
+    cantidad= models.DecimalField(max_digits=6, decimal_places=2)
     ESTADO_CHOICES = (
         ('pendiente', 'Pendiente'),
         ('aprobada', 'Aprobada'),
@@ -96,21 +97,10 @@ class Cotizacion(models.Model):
 
 class DetalleCotizacion(models.Model):
     cotizacion = models.ForeignKey(Cotizacion, on_delete=models.CASCADE, related_name='detalles')
-    cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE)
     fecha_inicio = models.DateTimeField()
     fecha_fin = models.DateTimeField()
     total = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     observacion = models.TextField()
-
-    def calcular_total(self):
-        categoria = self.cancha.categoria
-        insumo = self.cancha.insumo
-        subtotal = Decimal(str(categoria.precio_por_hora)) + Decimal(str(insumo.calcular_cantidad_total()))
-        return subtotal
-
-    def save(self, *args, **kwargs):
-        self.total = self.calcular_total()
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Detalle {self.pk} - {self.cancha.nombre} - Cotización {self.cotizacion.pk}"

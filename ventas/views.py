@@ -346,11 +346,20 @@ def cotizacion_save(request):
         nombre = request.POST.get('nombre')
         fecha_creacion = request.POST.get('fecha_creacion')
         total = request.POST.get('total')
+        cliente_id = request.POST.get('cliente')
+        materiales = request.POST.get('materiales')
+        cantidad = request.POST.get('cantidad')
+
+        cliente = Cliente.objects.get(id=cliente_id)
 
         cotizacion = Cotizacion(
             nombre=nombre,
             fecha_creacion=fecha_creacion,
             total=total,
+            cliente=cliente,
+            materiales=materiales,
+            cantidad=cantidad,
+            estado='pendiente'
         )
         cotizacion.save()
         messages.add_message(request, messages.INFO, 'Cotización guardada exitosamente')
@@ -359,7 +368,6 @@ def cotizacion_save(request):
     else:
         messages.add_message(request, messages.INFO, 'Error en el método de envío')
         return redirect('check_group_main')
-
 @login_required
 def cotizacion_list(request, page=None, search=None):
     if page is None:
@@ -381,6 +389,15 @@ def cotizacion_list(request, page=None, search=None):
         search = search
     else:
         search = request.GET.get('search')
+    if request.GET.get('search') is None:
+        search = search
+    else:
+        search = request.GET.get('search')
+    if request.GET.get('search') is None:
+        search = search
+    else:
+        search = request.GET.get('search')
+    
 
     if request.method == 'POST':
         search = request.POST.get('search')
@@ -391,13 +408,31 @@ def cotizacion_list(request, page=None, search=None):
         cotizacion_count = Cotizacion.objects.filter().count()
         cotizacion_list_array = Cotizacion.objects.all().order_by('fecha_creacion')
         for cotizacion in cotizacion_list_array:
-            cotizacion_list.append({'id': cotizacion.id, 'nombre': cotizacion.nombre, 'fecha_creacion': cotizacion.fecha_creacion, 'total': cotizacion.total})
+            cotizacion_list.append({
+                'id': cotizacion.id,
+                'nombre': cotizacion.nombre,
+                'fecha_creacion': cotizacion.fecha_creacion,
+                'total': cotizacion.total,
+                'cliente': cotizacion.cliente,
+                'materiales': cotizacion.materiales,
+                'cantidad': cotizacion.cantidad,
+                'estado': cotizacion.estado
+            })
 
     else:
         cotizacion_count = Cotizacion.objects.filter(fecha_creacion__icontains=search).count()
         cotizacion_list_array = Cotizacion.objects.filter(fecha_creacion__icontains=search).order_by('fecha_creacion')
         for cotizacion in cotizacion_list_array:
-            cotizacion_list.append({'id': cotizacion.id, 'nombre': cotizacion.nombre, 'fecha_creacion': cotizacion.fecha_creacion, 'total': cotizacion.total})
+            cotizacion_list.append({
+                'id': cotizacion.id,
+                'nombre': cotizacion.nombre,
+                'fecha_creacion': cotizacion.fecha_creacion,
+                'total': cotizacion.total,
+                'cliente': cotizacion.cliente,
+                'materiales': cotizacion.materiales,
+                'cantidad': cotizacion.cantidad,
+                'estado': cotizacion.estado
+            })
 
     paginator = Paginator(cotizacion_list, 20)
     cotizacion_list_paginate = paginator.get_page(page)
@@ -405,18 +440,23 @@ def cotizacion_list(request, page=None, search=None):
     template_name = 'ventas/cotizacion_list.html'
     return render(request, template_name, {'template_name': template_name, 'cotizacion_list_paginate': cotizacion_list_paginate, 'paginator': paginator, 'page': page})
 
-@login_required
 def cotizacion_edit(request, cotizacion_id):
     if request.method == 'POST':
         cotizacion = get_object_or_404(Cotizacion, id=cotizacion_id)
 
-        nombre = request.POST.get('nombre')
         fecha_creacion = request.POST.get('fecha_creacion')
-        total = request.POST.get('total')
+        nombre = request.POST.get('nombre')
+        cliente_id = request.POST.get('cliente')
+        materiales = request.POST.get('materiales')
+        cantidad = request.POST.get('cantidad')
+        estado = request.POST.get('estado')
 
-        cotizacion.nombre = nombre
         cotizacion.fecha_creacion = fecha_creacion
-        cotizacion.total = total
+        cotizacion.nombre = nombre
+        cotizacion.cliente_id = cliente_id
+        cotizacion.materiales = materiales
+        cotizacion.cantidad = cantidad
+        cotizacion.estado = estado
         cotizacion.save()
 
         return redirect('cotizacion_ver', cotizacion_id=cotizacion.id)
@@ -424,6 +464,7 @@ def cotizacion_edit(request, cotizacion_id):
         cotizacion_data = Cotizacion.objects.get(pk=cotizacion_id)
         template_name = 'ventas/cotizacion_ver.html'
         return render(request, template_name, {'cotizacion_data': cotizacion_data})
+
 @login_required
 def cotizacion_carga_masiva(request):
     profiles = Profile.objects.get(user_id=request.user.id)

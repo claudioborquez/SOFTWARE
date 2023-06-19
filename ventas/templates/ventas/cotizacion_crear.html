@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Planeta Gol - Menu</title>
+    <title>CAA - Menu</title>
 
     <!-- Custom fonts for this template-->
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -23,7 +23,9 @@
 </head>
  <!-- Contenido de la página -->
  
-<body id="page-top">
+<body id="page-top" class="custom-bg">
+    
+    
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -34,7 +36,7 @@
               <div class="sidebar-brand-icon rotate-n-15">
                   <i class="fas fa-laugh-wink"></i>
               </div>
-              <div class="sidebar-brand-text mx-3">Planeta Gol </div>
+              <div class="sidebar-brand-text mx-3"> CAA </div>
           </a>
 
           <!-- Divider -->
@@ -47,74 +49,80 @@
           </div>
 
           <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAD"
-                  aria-expanded="true" aria-controls="collapseAD">
-                  <i class="fas fa-fw fa-folder"></i>
-                  <span>Administración</span>
-              </a>
-              <div id="collapseAD" class="collapse" aria-labelledby="headingAD" data-parent="#accordionSidebar">
-                  <div class="bg-white py-2 collapse-inner rounded">
-                      <h6 class="collapse-header">Administración:</h6>
-                      <a class="collapse-item" href="{% url 'gestion_group' %}">Gestión de grupo</a>
-                      <a class="collapse-item" href="{% url 'gestion_user' %}">Gestión de usuarios</a>   
-
-                  </div>
-              </div>
-          </li>
+          
           
           <!-- Nav Item - Charts -->
-          <li class="nav-item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseINV"
-                  aria-expanded="true" aria-controls="collapseINV">
-                  <i class="fas fa-fw fa-folder"></i>
-                  <span>Inventario</span>
-              </a>
-              <div id="collapseINV" class="collapse" aria-labelledby="headingINV" data-parent="#accordionSidebar">
-                  <div class="bg-white py-2 collapse-inner rounded">
-                      <h6 class="collapse-header">Inventario:</h6>
-                      <a class="collapse-item" href="{% url 'gestion_producto' %}">Gestión de producto</a>
-                      <a class="collapse-item" href="{% url 'gestion_categoria' %}">Gestión de Categoría</a>   
-                      <a class="collapse-item" href="{% url 'orden_main' %}">Gestión de insumos</a> 
-
-                  </div>
-              </div>
-          </li>
+       
 
           <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePRO"
-                aria-expanded="true" aria-controls="collapsePRO">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Proveedores</span>
+          
+           
+          <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Resto del código -->
+            
+            <!-- Nav Item - Ver Inventario -->
+            
+        </ul>
+        
+        <div class="navbar-nav nav-center mt-3">
+            <a class="nav-link btn rounded-pill active" href="#">
+                <span>Envío de Formulario</span>
             </a>
-            <div id="collapsePRO" class="collapse" aria-labelledby="headingPRO" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Proveedores:</h6>
-                    <a class="collapse-item" href="{% url 'gestion_proveedores' %}">Gestión de proveedores</a>
-                    <a class="collapse-item" href="{% url 'gestion_de_orden' %}">Gestión de orden</a>   
-
-                </div>
-            </div>
-        </li>
+        </div>
+        
+        
+        
+        
+        <style>
+            .nav-link.active {
+                background-color: #539131;
+                color: #000000;
+            }
+        </style>
+           
+        
+        
+        
+        
+        
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVEN"
-              aria-expanded="true" aria-controls="collapseVEN">
-              <i class="fas fa-fw fa-folder"></i>
-              <span>Ventas</span>
-          </a>
-          <div id="collapseVEN" class="collapse" aria-labelledby="headingVEN" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Ventas:</h6>
-                  <a class="collapse-item" href="{% url 'gestion_cliente' %}">Gestión de Cliente</a>
-                  <a class="collapse-item" href="{% url 'gestion_cotizacion' %}">Gestión de Cotizacion</a>
-            </li>
+        
 
 
 
                 </ul>
+                <div id="content-wrapper" class="d-flex flex-column">
+                    <div id="content">
+                <nav class="navbar navbar-expand navbar-dark bg-dark topbar mb-4 static-top shadow">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                               
+                            </a>
+                        </li>
+                         
+
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                
+                            </a>
+                        </li>
+                        
+
+                        
+
+                        
+                    </ul>
+                </nav>
             
 
             </nav>
@@ -135,18 +143,33 @@
             {% csrf_token %}
             <div class="col-12 col-lg-12 row row-cols-1 row-cols-md-1 g-2 p-lg-0-5">
                 <div class="mb-0 col-md-12">
+                    <label for="cotizacion_fecha_creacion" class="form-label">Fecha de Creación</label>
+                    <input type="datetime-local" class="form-control" name="fecha_creacion" id="cotizacion_fecha_creacion" required>
+                    <div class="feedback body--small normal"></div>
+                </div>
+                <div class="mb-0 col-md-12">
                     <label for="cotizacion_nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" name="nombre" id="cotizacion_nombre" placeholder="Nombre de la cotización" required>
                     <div class="feedback body--small normal"></div>
                 </div>
                 <div class="mb-0 col-md-12">
-                    <label for="cotizacion_total" class="form-label">Total</label>
-                    <input type="number" step="0.01" class="form-control" name="total" id="cotizacion_total" placeholder="Total" required>
+                    <label for="cotizacion_cliente" class="form-label">Cliente</label>
+                    <select name="cliente" id="cotizacion_cliente" class="form-control" required>
+                        <option value="">Seleccione un cliente</option>
+                        {% for cliente in clientes %}
+                        <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
+                        {% endfor %}
+                    </select>
                     <div class="feedback body--small normal"></div>
                 </div>
                 <div class="mb-0 col-md-12">
-                    <label for="cotizacion_fecha_creacion" class="form-label">Fecha de Creación</label>
-                    <input type="datetime-local" class="form-control" name="fecha_creacion" id="cotizacion_fecha_creacion" value="{{ cotizacion.fecha_creacion|date:'Y-m-d\TH:i' }}" required>
+                    <label for="cotizacion_materiales" class="form-label">Materiales</label>
+                    <input type="text" class="form-control" name="materiales" id="cotizacion_materiales" placeholder="Materiales" required>
+                    <div class="feedback body--small normal"></div>
+                </div>
+                <div class="mb-0 col-md-12">
+                    <label for="cotizacion_cantidad" class="form-label">Cantidad</label>
+                    <input type="number" step="0.01" class="form-control" name="cantidad" id="cotizacion_cantidad" placeholder="Cantidad" required>
                     <div class="feedback body--small normal"></div>
                 </div>
                 <div class="mb-0 col-md-12">
