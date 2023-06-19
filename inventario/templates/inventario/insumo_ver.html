@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Planeta Gol - Menu</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/interfaz.css' %}" rel="stylesheet">
+
+</head>
+ <!-- Contenido de la página -->
+ 
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+      <!-- Sidebar -->
+      <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+          <!-- Sidebar - Brand -->
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'admin_main' %}">
+              <div class="sidebar-brand-icon rotate-n-15">
+                  <i class="fas fa-laugh-wink"></i>
+              </div>
+              <div class="sidebar-brand-text mx-3">Planeta Gol </div>
+          </a>
+
+          <!-- Divider -->
+          <hr class="sidebar-divider my-0">
+
+
+          <!-- Heading -->
+          <div class="sidebar-heading">
+              Menú
+          </div>
+
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAD"
+                  aria-expanded="true" aria-controls="collapseAD">
+                  <i class="fas fa-fw fa-folder"></i>
+                  <span>Administración</span>
+              </a>
+              <div id="collapseAD" class="collapse" aria-labelledby="headingAD" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                      <h6 class="collapse-header">Administración:</h6>
+                      <a class="collapse-item" href="{% url 'gestion_group' %}">Gestión de grupo</a>
+                      <a class="collapse-item" href="{% url 'gestion_user' %}">Gestión de usuarios</a>   
+
+                  </div>
+              </div>
+          </li>
+          
+          <!-- Nav Item - Charts -->
+          <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseINV"
+                  aria-expanded="true" aria-controls="collapseINV">
+                  <i class="fas fa-fw fa-folder"></i>
+                  <span>Inventario</span>
+              </a>
+              <div id="collapseINV" class="collapse" aria-labelledby="headingINV" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                      <h6 class="collapse-header">Inventario:</h6>
+                      <a class="collapse-item" href="{% url 'gestion_producto' %}">Gestión de producto</a>
+                      <a class="collapse-item" href="{% url 'gestion_categoria' %}">Gestión de Categoría</a>
+                      <a class="collapse-item" href="{% url 'gestion_categoria' %}">Gestión de Insumos</a>   
+   
+
+                  </div>
+              </div>
+          </li>
+
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePRO"
+                aria-expanded="true" aria-controls="collapsePRO">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Proveedores</span>
+            </a>
+            <div id="collapsePRO" class="collapse" aria-labelledby="headingPRO" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Proveedores:</h6>
+                    <a class="collapse-item" href="{% url 'gestion_proveedores' %}">Gestión de proveedores</a>
+                    <a class="collapse-item" href="{% url 'orden_main' %}">Gestión de orden</a>   
+            </div>
+        </li>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVEN"
+              aria-expanded="true" aria-controls="collapseVEN">
+              <i class="fas fa-fw fa-folder"></i>
+              <span>Ventas</span>
+          </a>
+          <div id="collapseVEN" class="collapse" aria-labelledby="headingVEN" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Ventas:</h6>
+                  <a class="collapse-item" href="{% url 'gestion_cliente' %}">Gestión de Clientes</a>
+                  <a class="collapse-item" href="{% url 'gestion_cotizacion' %}">Gestión de Cotizacion</a>
+            </li>
+
+
+
+                </ul>
+            
+
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            
+                <!-- Page Heading -->
+                
+                <div class="container">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 col-4 mb-0 my-3 text-gray-800">Gestión de Insumos</h1>
+                        <h1 class="h3 mb-0 text-gray-0"></h1>
+                    </div>   
+                    <h3>Ver insumos</h3>
+                    <form method="post" action="{% url 'insumo_edit' insumo_id=insumo_data.id|default:'' %}">
+                        {% csrf_token %}
+                        <div class="col-12 col-lg-12 row row-cols-1 row-cols-md-1 g-2 p-lg-0-5">
+                            <div class="mb-0 col-md-12">
+                                <label for="nombre" class="form-label">Rubro</label>
+                                <select name="producto" id="producto" class="form-control" required>
+                                    {% for c in proveedores_listado %}
+                                        {% if c in proveedores_listado %}
+                                            <option value="{{c.rubro}}">{{c.rubro}}</option>
+                                        {% endif %}
+                                      
+                                    {% endfor %}
+                                
+                                </select>
+                            </div>
+                            <div class="mb-0 col-md-12">
+                                <label for="insumo_nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" name="insumo_nombre" id="insumo_nombre" value="{{ insumo_data.nombre }}" placeholder="Nombre" required>
+                                <div class="feedback body--small normal"></div>
+                            </div>
+                            <div class="mb-0 col-md-12">
+                                <label for="insumo_descripcion" class="form-label">Descripción</label>
+                                <textarea class="form-control" name="insumo_descripcion" id="insumo_descripcion" placeholder="Descripción">{{ insumo_data.descripcion }}</textarea>
+                                <div class="feedback body--small normal"></div>
+                            </div>
+                            <div class="mb-0 col-md-12">
+                                <label for="insumo_cantidad_disponible" class="form-label">Cantidad Disponible</label>
+                                <input type="number" class="form-control" name="insumo_cantidad_disponible" id="insumo_cantidad_disponible" value="{{ insumo_data.cantidad_disponible }}" placeholder="Cantidad Disponible" required>
+                                <div class="feedback body--small normal"></div>
+                            </div>
+                            <div class="mb-0 col-md-12">
+                                <label for="insumo_cantidad_utilizada" class="form-label">Cantidad Utilizada</label>
+                                <input type="number" class="form-control" name="insumo_cantidad_utilizada" id="insumo_cantidad_utilizada" value="{{ insumo_data.cantidad_utilizada }}" placeholder="Cantidad Utilizada" required>
+                                <div class="feedback body--small normal"></div>
+                            </div>
+                            <div class="mb-0 col-md-12">
+                                <label for="valor_insumo" class="form-label">Valor de Insumo</label>
+                                <input type="number" class="form-control" name="valor_insumo" id="valor_insumo" placeholder="Valor Del Insumo" required>
+                                <div class="feedback body--small normal"></div>
+                            </div>
+                            <div class="col-3 my-3">
+                                 <div class="d-flex justify-content-center mb-2">
+                                    <div class="d-flex justify-content-center mx-0-5--custom">
+                                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                                    </div>
+                                    <div class="col-5">
+                                        <a href="{% url 'insumo_eliminar' insumo_id=insumo_data.id %}" class="btn btn-danger">Eliminar</a>
+                                    </div>
+                                    <div class="col-2">
+                                        <a href="{% url 'insumo_list' %}" class="btn btn-dark">Volver</a>
+                                    </div>  
+                                </div>                                  
+                            </div>
+                        </div>
+                    </form>                             
+                </div>
+                <!-- Bootstrap core JavaScript-->
+                <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+                <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+                
+                <!-- Core plugin JavaScript-->
+                <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+                
+                <!-- Custom scripts for all pages-->
+                <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+                
+                <!-- Page level plugins -->
+                <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+                
+                <!-- Page level custom scripts -->
+                <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+                <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>       
+                

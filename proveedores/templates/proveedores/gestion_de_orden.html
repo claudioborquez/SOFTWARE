@@ -1,0 +1,245 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CAA - Menu</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+       
+
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/interfaz.css' %}" rel="stylesheet">
+
+</head>
+ <!-- Contenido de la página -->
+ 
+<body id="page-top">
+    
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+    
+      <!-- Sidebar -->
+      <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+          <!-- Sidebar - Brand -->
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+              <div class="sidebar-brand-icon rotate-n-15">
+                  <i class="fas fa-laugh-wink"></i>
+              </div>
+              <div class="sidebar-brand-text mx-3">CAA </div>
+          </a>
+
+          <!-- Divider -->
+          <hr class="sidebar-divider my-0">
+          
+
+
+          <!-- Heading -->
+          <div class="sidebar-heading">
+              Menú
+          </div>
+
+          <!-- Nav Item - Pages Collapse Menu -->
+          
+          
+          <!-- Nav Item - Charts -->
+         
+          <!-- Nav Item - Pages Collapse Menu -->
+          <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Resto del código -->
+            
+            <li class="nav-item">
+                <a class="nav-link btn rounded-pill active mb-2" href="{% url 'gestion_de_orden' %}">
+                    <span>Inventario</span>
+                </a>
+            </li>
+        
+            <!-- Nav Item - Ver Inventario -->
+            <li class="nav-item">
+                <a class="nav-link nav-underline btn rounded-pill active mb-2" href="{% url 'gestion_ver' %}">
+                    <span>Ver Inventario</span>
+                </a>
+            </li>
+        </ul>
+    <style>
+        .nav-link.active {
+            background-color: #539131;
+            color: #000000;
+        }
+    </style>
+
+        <!-- Nav Item - Charts -->
+       
+
+
+
+                </ul>
+                <div id="content-wrapper" class="d-flex flex-column">
+                    <div id="content">
+                <nav class="navbar navbar-expand navbar-dark bg-dark topbar mb-4 static-top shadow">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                               
+                            </a>
+                        </li>
+                         
+
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                
+                            </a>
+                        </li>
+                        <form method="get" action="{% url 'gestion_de_orden' %}" class="col-12  input-container-search my-auto me-3">
+                            {% csrf_token %}
+                            <input name="search" id="search" type="text" placeholder="Buscar...">
+                            <button type="submit" class="btn btn-group badge-pill">Buscar</button>
+                            
+                        </form>  
+
+                        
+
+                        
+                    </ul>
+                </nav>
+            
+
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+
+        <div class="container py-4 my-5">
+            <div class=" row">
+                
+                <div class="col-sm-12 col-md-6 col-lg-5 col-xl-5 my-5">
+                    
+                    <h3>Añadir Producto</h3>
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="post" action="{% url 'arriendo_save' %}"> 
+                                {% csrf_token %}
+                                <div class="form-group py-2">
+                                    <input type="text" id="orden" name="orden" class="form-control" placeholder="SKU" minlength="1" maxlength="6" required>
+                                </div>
+                
+                                <div class="form-group py-2">
+                                    <select name="nombre" id="nombre" class="form-control" required>
+                                        <option value="">Proveedor</option>
+                                        {% for c in proveedores_listado %}
+                                        <option value="{{c.id}}">{{c.nombre}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                
+                                <div class="form-group py-2">
+                                    <select name="producto" id="producto" class="form-control" required>
+                                        <option value="">Producto</option>
+                                        {% for c in proveedores_listado %}
+                                            {% if c in proveedores_listado %}
+                                                <option value="{{c.rubro}}">{{c.rubro}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group py-2">
+                                    <input type="text" id="cantidad" name="cantidad" class="form-control" placeholder="Cantidad" minlength="1" maxlength="10" required>
+                                </div>
+                                
+                                <div class="form-group py-2">
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="Correo electrónico" required>
+                                </div>
+                
+                                <div class="form-group py-2">
+                                    <button type="submit" class="btn btn-info btn-block text-white">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+                <div class="col-sm-12 col-md-6 col-lg-7 col-xl-7 my-5">
+                    <h4>Inventario</h4>
+                    <div class="table-responsive py-2">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>SKU</th>
+                                    <th>Proveedor</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Email</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for c in arriendos %}
+                                <tr>
+                                    <td>{{ c.orden }}</td>
+                                    <td>{{ c.nombre }}</td>
+                                    <td>{{ c.producto }}</td>
+                                    <td>{{ c.cantidad }}</td>
+                                    <td>{{ c.email }}</td>
+                                    <td>
+                                        <form method="post" action="{% url 'ver_arriendo' %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-info btn-block text-white">Ver</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+    <a href="{% url 'generar_informe' %}" title="Descarga listado">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-down-fill" viewBox="0 0 16 16">
+            <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z"/>
+          </svg>
+    </a>
+
+            </div>
+        </div>
+    </body>
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+<!-- Page level plugins -->
+<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+<script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>       
+</div>
+</li>

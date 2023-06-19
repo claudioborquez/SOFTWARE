@@ -1,0 +1,262 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CAA - Menu</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/interfaz.css' %}" rel="stylesheet">
+
+</head>
+ <!-- Contenido de la página -->
+ 
+<body id="page-top" class="custom-bg">
+    
+    
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+      <!-- Sidebar -->
+      <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+          <!-- Sidebar - Brand -->
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'admin_main' %}">
+              <div class="sidebar-brand-icon rotate-n-15">
+                  <i class="fas fa-laugh-wink"></i>
+              </div>
+              <div class="sidebar-brand-text mx-3"> CAA </div>
+          </a>
+
+          <!-- Divider -->
+          <hr class="sidebar-divider my-0">
+
+
+          <!-- Heading -->
+          <div class="sidebar-heading">
+              Menú
+          </div>
+
+          <!-- Nav Item - Pages Collapse Menu -->
+          
+          
+          <!-- Nav Item - Charts -->
+       
+
+          <!-- Nav Item - Pages Collapse Menu -->
+          
+           
+          <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Resto del código -->
+            
+            <li class="nav-item">
+                <a class="nav-link btn rounded-pill active mb-2" href="{% url 'gestion_de_orden' %}">
+                    <span>Inventario</span>
+                </a>
+            </li>
+        
+            <!-- Nav Item - Ver Inventario -->
+            <li class="nav-item">
+                <a class="nav-link nav-underline btn rounded-pill active mb-2" href="{% url 'gestion_ver' %}">
+                    <span>Ver Inventario</span>
+                </a>
+            </li>
+        </ul>
+        
+        
+        <style>
+            .nav-link.active {
+                background-color: #539131;
+                color: #000000;
+            }
+        </style>
+           
+        
+        
+        
+        
+        
+
+        <!-- Nav Item - Charts -->
+        
+
+
+
+                </ul>
+                <div id="content-wrapper" class="d-flex flex-column">
+                    <div id="content">
+                <nav class="navbar navbar-expand navbar-dark bg-dark topbar mb-4 static-top shadow">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                               
+                            </a>
+                        </li>
+                         
+
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                
+                            </a>
+                        </li>
+                        
+
+                        
+
+                        
+                    </ul>
+                </nav>
+            
+
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+          
+            <!-- Page Heading -->
+  
+             
+                
+                <div class="container">
+                    <div class="container my-5">
+                        <div class="container col-12 ">
+                            <div class="container">
+                                <div class="container">
+                                    
+                                </div>
+                                   
+                            </div>
+                            <div class="d-flex justify-content-center mx-0-5--custom">
+                               
+                            </div> 
+                        <h2>INVENTARIO</h2>
+                        <form method="get" action="{% url 'ver_arriendo' %}" class="col-12 col-lg-6 input-container-search my-auto me-3">
+                            {% csrf_token %}
+                            <input name="search" id="search" type="text" placeholder="Buscar...">
+                            <button type="submit" class="btn btn-info">Buscar</button>
+                            
+                        </form>   
+                        
+                    </table>
+                    
+                    
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>SKU</th>
+                                    <th>Proveedor</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Email</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for c in arriendos %}
+                                <tr>
+                                    <td>{{ c.orden }}</td>
+                                    <td>{{ c.nombre.nombre }}</td>
+                                    <td>{{ c.producto }}</td>
+                                    <td>{{ c.cantidad }}</td>
+                                    <td>{{ c.email }}</td>
+
+
+
+                                    <form method="post" action="{% url 'eliminar_arriendo' c.orden %}"> 
+                                        {% csrf_token %}
+                                    <td><button type="submit"
+                                        class="btn btn-danger btn-block text-white">Eliminar</button></td>
+                                    </form>
+                                    <form method="post" action="{% url 'gestion_de_orden'  %}"> 
+                                        {% csrf_token %}
+                                    <td><button type="submit"
+                                        class="btn btn-info btn-block text-white">Editar</button></td>
+                                    </form>
+                                </tr>
+                                {% endfor %}
+                            
+                            </tbody>
+                            
+                            </div>
+                            <div class="mb-3 my-5">
+                                <h2>Generar Informe</h2>
+                                <form method="get" action="{% url 'generar_informe' %}">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="filtro_orden" class="form-label">Filtrar por SKU:</label>
+                                                <input type="text" id="filtro_orden" name="filtro_orden" class="form-control" placeholder="SKU">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="filtro_nombre" class="form-label">Filtrar por Proveedor:</label>
+                                                <input type="text" id="filtro_nombre" name="filtro_nombre" class="form-control" placeholder="Proveedor">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="filtro_producto" class="form-label">Filtrar por Producto:</label>
+                                                <input type="text" id="filtro_producto" name="filtro_producto" class="form-control" placeholder="Producto">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="filtro_cantidad" class="form-label">Filtrar por Cantidad:</label>
+                                                <input type="text" id="filtro_cantidad" name="filtro_cantidad" class="form-control" placeholder="Cantidad">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="mb-3">
+                                                <label for="filtro_email" class="form-label">Filtrar por Email:</label>
+                                                <input type="text" id="filtro_email" name="filtro_email" class="form-control" placeholder="Email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-info">Generar Informe</button>
+                                </form>
+                        </div>
+                    </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+      <!-- Bootstrap core JavaScript-->
+      <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+      <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+      <!-- Core plugin JavaScript-->
+      <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+      <!-- Custom scripts for all pages-->
+      <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+      <link href="{% static 'css/custom-styles.css' %}" rel="stylesheet">
+
+      <!-- Page level plugins -->
+      <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+      <!-- Page level custom scripts -->
+      <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+      <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>  
+       
+      <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+</div>
+</li>
+   

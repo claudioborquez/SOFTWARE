@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Planeta Gol - Menu</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+      <link href="{% static 'css/interfaz.css' %}" rel="stylesheet">
+
+</head>
+ <!-- Contenido de la página -->
+ 
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+      <!-- Sidebar -->
+      <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+          <!-- Sidebar - Brand -->
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'admin_main' %}">
+              <div class="sidebar-brand-icon rotate-n-15">
+                  <i class="fas fa-laugh-wink"></i>
+              </div>
+              <div class="sidebar-brand-text mx-3">Planeta Gol </div>
+          </a>
+
+          <!-- Divider -->
+          <hr class="sidebar-divider my-0">
+
+
+          <!-- Heading -->
+          <div class="sidebar-heading">
+              Menú
+          </div>
+
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAD"
+                  aria-expanded="true" aria-controls="collapseAD">
+                  <i class="fas fa-fw fa-folder"></i>
+                  <span>Administración</span>
+              </a>
+              <div id="collapseAD" class="collapse" aria-labelledby="headingAD" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                      <h6 class="collapse-header">Administración:</h6>
+                      <a class="collapse-item" href="{% url 'gestion_group' %}">Gestión de Grupo</a>
+                      <a class="collapse-item" href="{% url 'gestion_user' %}">Gestión de Usuarios</a>   
+
+                  </div>
+              </div>
+          </li>
+          
+          <!-- Nav Item - Charts -->
+          <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseINV"
+                  aria-expanded="true" aria-controls="collapseINV">
+                  <i class="fas fa-fw fa-folder"></i>
+                  <span>Inventario</span>
+              </a>
+              <div id="collapseINV" class="collapse" aria-labelledby="headingINV" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                      <h6 class="collapse-header">Inventario:</h6>
+                      <a class="collapse-item" href="{% url 'gestion_producto' %}">Gestión de Producto</a>
+                      <a class="collapse-item" href="{% url 'gestion_categoria' %}">Gestión de Categoría</a>
+                      <a class="collapse-item" href="{% url 'gestion_insumo' %}">Gestión de Insumos</a>   
+
+                  </div>
+              </div>
+          </li>
+
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePRO"
+                aria-expanded="true" aria-controls="collapsePRO">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Proveedores</span>
+            </a>
+            <div id="collapsePRO" class="collapse" aria-labelledby="headingPRO" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Proveedores:</h6>
+                    <a class="collapse-item" href="{% url 'gestion_proveedores' %}">Gestión de Proveedores</a>
+                    <a class="collapse-item" href="{% url 'orden_main' %}">Gestión de Orden</a>   
+
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVEN"
+              aria-expanded="true" aria-controls="collapseVEN">
+              <i class="fas fa-fw fa-folder"></i>
+              <span>Ventas</span>
+          </a>
+          <div id="collapseVEN" class="collapse" aria-labelledby="headingVEN" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Ventas:</h6>
+                  <a class="collapse-item" href="{% url 'gestion_cliente' %}">Gestión de Clientes</a>
+                  <a class="collapse-item" href="{% url 'gestion_cotizacion' %}">Gestión de Cotizacion</a>
+            </li>
+                </ul>
+            
+
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid my-3 col-12">
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4 ">
+                    <h1 class="h3 col-4 mb-0 my-3 text-gray-800">Gestión de Ventas</h1>
+                    <h1 class="h3 mb-0 text-gray-0"></h1>
+                </div>
+            <div class="container">
+                
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="card bg-skin" style="width: auto;">
+                            <div class="card-body">
+                                <div class="container-fluid my-3 col-10">
+                                    <!-- Page Heading -->
+                                    <div class="d-sm-flex align-items-center justify-content-center mb-3">
+                                      <h5 class="card-title">Menu de cotizaciones</h5>
+                                    </div>
+                                <div class="d-flex justify-content-center mx-0-5--custom mt-2">
+                                    <a href="{% url 'cotizacion_list' %}" class="btn btn-info form-control" >Lista de cotizaciones
+                                    </a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="{% url 'cotizacion_crear' %}" class="btn btn-info form-control" >Crear cotizacion 
+                                    </a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="{% url 'cotizacion_carga_masiva' %}" class="btn btn-info form-control" >Carga masiva 
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-3 mb-3">
+                            </div>
+                        </div>
+                    </div>                                   
+                </div>
+            </div>            
+        </div>
+    </div>
+
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+<!-- Page level plugins -->
+<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+<script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>       
+</div>
+</li>
