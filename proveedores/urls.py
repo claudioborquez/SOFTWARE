@@ -6,14 +6,11 @@
 #from core.urls import core_urlpatterns
 from django.urls import path
 from proveedores import views
-from .views import generar_informe
 
 urlpatterns = [
-    path('generar_informe/', generar_informe, name='generar_informe'),
     path('eliminar_arriendo/<int:orden>/',views.eliminar_arriendo,name="eliminar_arriendo"),
     path('ver_arriendo/',views.ver_arriendo,name="ver_arriendo"),
     path('gestion_ver/',views.gestion_ver,name="gestion_ver"),
-    path('proveedores_main/',views.proveedores_main,name="proveedores_main"),  
     #Gestion de orden de compra
     path('gestion_de_orden/',views.gestion_de_orden,name="gestion_de_orden"),
     path('arriendo_save/', views.arriendo_save, name="arriendo_save"),
@@ -25,16 +22,13 @@ urlpatterns = [
     path('orden_main/',views.orden_main,name="orden_main"),
 
     #Gestion de proveedores
-    path('gestion_proveedores/',views.gestion_proveedores,name="gestion_proveedores"),
+    path('proveedores/eliminar/<int:categoria_id>/', views.proveedores_eliminar, name='proveedores_eliminar'),
     path('proveedores_crear/',views.proveedores_crear,name="proveedores_crear"),
     path('proveedores_save/',views.proveedores_save,name="proveedores_save"),
-    path('proveedores_ver/<int:proveedor_id>/',views.proveedores_ver,name="proveedores_ver"),
+    path('proveedores_ver/<int:proveedores_id>/',views.proveedores_ver,name="proveedores_ver"),
     path('proveedores_list/',views.proveedores_list,name="proveedores_list"),
-    path('proveedores_edit/<int:proveedor_id>/',views.proveedores_edit,name="proveedores_edit"),
-    path('proveedores_carga_masiva/',views.proveedores_carga_masiva,name="proveedores_carga_masiva"),
-    path('proveedores_carga_masiva_save/',views.proveedores_carga_masiva_save,name="proveedores_carga_masiva_save"),
-    path('proveedores_import_file/',views.proveedores_import_file,name="proveedores_import_file"),
-    path('eliminar/<int:proveedor_id>/', views.eliminar, name='eliminar'),
+    path('proveedores_edit/<int:proveedores_id>/',views.proveedores_edit,name="proveedores_edit"),
+    path('proveedores_eliminar/<int:proveedores_id>/', views.proveedores_eliminar, name='proveedores_eliminar'),
     
 ]
 

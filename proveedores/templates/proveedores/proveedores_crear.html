@@ -18,7 +18,8 @@
 
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/interfaz.css' %}" rel="stylesheet">
+      <link href="{% static 'css/interfaz.css' %}" rel="stylesheet">
+
 </head>
  <!-- Contenido de la página -->
  
@@ -55,8 +56,8 @@
               <div id="collapseAD" class="collapse" aria-labelledby="headingAD" data-parent="#accordionSidebar">
                   <div class="bg-white py-2 collapse-inner rounded">
                       <h6 class="collapse-header">Administración:</h6>
-                      <a class="collapse-item" href="{% url 'gestion_group' %}">Gestión de Grupo</a>
-                      <a class="collapse-item" href="{% url 'gestion_user' %}">Gestión de Usuarios</a>   
+                      <a class="collapse-item" href="{% url 'gestion_group' %}">Gestión de grupo</a>
+                      <a class="collapse-item" href="{% url 'gestion_user' %}">Gestión de usuarios</a>   
 
                   </div>
               </div>
@@ -72,9 +73,10 @@
               <div id="collapseINV" class="collapse" aria-labelledby="headingINV" data-parent="#accordionSidebar">
                   <div class="bg-white py-2 collapse-inner rounded">
                       <h6 class="collapse-header">Inventario:</h6>
-                      <a class="collapse-item" href="{% url 'gestion_producto' %}">Gestión de Producto</a>
-                      <a class="collapse-item" href="{% url 'gestion_categoria' %}">Gestión de Categoría</a>   
-                      <a class="collapse-item" href="{% url 'gestion_insumo' %}">Gestión de Insumos</a>
+                      <a class="collapse-item" href="{% url 'gestion_producto' %}">Gestión de producto</a>
+                      <a class="collapse-item" href="{% url 'gestion_categoria' %}">Gestión de Categoría</a>
+                      <a class="collapse-item" href="{% url 'gestion_insumo' %}">Gestión de Insumos</a>   
+
                   </div>
               </div>
           </li>
@@ -106,8 +108,7 @@
           <div id="collapseVEN" class="collapse" aria-labelledby="headingVEN" data-parent="#accordionSidebar">
               <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Ventas:</h6>
-                  <a class="collapse-item" href="{% url 'gestion_cliente' %}">Gestión de Clientes</a>
-                  <a class="collapse-item" href="{% url 'gestion_cotizacion' %}">Gestión de Cotizacion</a>
+                  <a class="collapse-item" href="{% url 'gestion_proveedor' %}">Gestión de proveedors</a>
             </li>
 
 
@@ -122,61 +123,76 @@
             <div class="container-fluid my-3 col-12">
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4 ">
-                    <h1 class="h3 col-8 mb-0 my-3 text-gray-800">Gestión de proveedores</h1>
+                    <h1 class="h3 col-4 mb-0 my-3 text-gray-800">Gestión de Ventas</h1>
                     <h1 class="h3 mb-0 text-gray-0"></h1>
                 </div>
     <div class="col-md-11">
-        <div class="mb-3">
+        <div class="mb-5">
             <div class="d-flex flex-column align-items-center align-items-lg-start">
-                <form method="post" action="{% url 'proveedores_save' %}">
+                <form method="post" action="{% url 'proveedor_save' %}">
                     {% csrf_token %}
                     <div class="col-12 col-lg-12 row row-cols-1 row-cols-md-1 g-2 p-lg-0-5">
-                        <div class="mb-0 col-md-12">
+                        <div class="mb-0 col-md-10 text-center">
                             <label for="nombre" class="form-label">Nombre de proveedor</label>
-                            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre empresa" required>
+                            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required>
                             <div class="feedback body--small normal"></div>
                         </div>
-                        <div class="mb-0 col-md-12">
-                            <label for="rubro" class="form-label">Rubro de proveedor</label>
-                            <input type="text" class="form-control" name="rubro" id="rubro" placeholder="Rubro empresa" required>
-                            <div class="feedback body--small normal"></div>
-                        </div>
-                        <div class="mb-0 col-md-12">
-                            <label for="email" class="form-label">Email de proveedor</label>
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Email empresa" required>
-                            <div class="feedback body--small normal"></div>
-                        </div>
-                        <div class="mb-0 col-md-12 my-3">
-                            <div class="d-flex justify-content-center mb-2">
-                                <div class="col-3">
-                                    <button type="submit" class="btn btn-info btn-block text-white">Crear</button>
-                                </div>
-                                <div class="col-3">
-                                    <a href="{% url 'gestion_proveedores' %}" class="btn btn-dark btn-block text-white">Volver</a>
-                                </div>
+                        <div class="col-12 col-lg-12 row row-cols-1 row-cols-md-1 g-2 p-lg-0-5">
+                            <div class="mb-0 col-md-10 text-center">
+                                <label for="rubro" class="form-label">Rubro de proveedor</label>
+                                <input type="text" class="form-control" name="rubro" id="rubro" placeholder="Rubro" required>
+                                <div class="feedback body--small normal"></div>
                             </div>
+                        </div>
+                        <div class="col-12 col-lg-12 row row-cols-1 row-cols-md-1 g-2 p-lg-0-5">
+                            <div class="mb-0 col-md-10 text-center">
+                                <label for="email" class="form-label">Email de proveedor</label>
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Email" required>
+                                <div class="feedback body--small normal"></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-12 row row-cols-1 row-cols-md-1 g-2 p-lg-0-5">
+                            <div class="mb-0 col-md-10 text-center">
+                                <label for="telefono" class="form-label">Teléfono de proveedor</label>
+                                <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" required>
+                                <div class="feedback body--small normal"></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-12 row row-cols-1 row-cols-md-1 g-2 p-lg-0-5">
+                            <div class="mb-0 col-md-10 text-center">
+                                <label for="rut" class="form-label">RUT de proveedor</label>
+                                <input type="text" class="form-control" name="rut" id="rut" placeholder="RUT" required>
+                                <div class="feedback body--small normal"></div>
+                            </div>
+                        </div>
+                        <div class="mb-5 col-md-10">
+                            <div class="d-flex justify-content-center mb-2">
+                                <div class="col-10 col-sm-2 ">
+                                    <button class="btn btn-info form-control" type="submit">Guardar</button>
+                                </div>
+                            </div>                                  
                         </div>
                     </div>
                 </form>                
             </div>
         </div>
     </div>
-  </div>
-  <!-- Bootstrap core JavaScript-->
-  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+<!-- Core plugin JavaScript-->
+<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+<!-- Custom scripts for all pages-->
+<script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
-  <!-- Page level plugins -->
-  <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+<!-- Page level plugins -->
+<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
 
-  <!-- Page level custom scripts -->
-  <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
-  <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>       
+<!-- Page level custom scripts -->
+<script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+<script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>       
 </div>
 </li>
