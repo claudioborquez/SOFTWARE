@@ -681,6 +681,7 @@ def material_ver(request, material_id):
     material_data = Material.objects.get(pk=material_id)
     template_name = 'inventario/material_ver.html'
     return render(request, template_name, {'profile': profile, 'material_data': material_data})
+
 @login_required
 def material_list(request, page=None, search=None):
     profile = Profile.objects.get(user_id=request.user.id)
@@ -708,6 +709,7 @@ def material_list(request, page=None, search=None):
         material_list_array = Material.objects.all().order_by('nombre')
         for material in material_list_array:
             material_list.append({
+                'id' : material.id,
                 'codigo': material.codigo,
                 'nombre': material.nombre,
                 'categoria': material.categoria,
@@ -723,6 +725,7 @@ def material_list(request, page=None, search=None):
         material_list_array = Material.objects.filter(nombre__icontains=search).order_by('nombre')
         for material in material_list_array:
             material_list.append({
+                'id' : material.id,
                 'codigo': material.codigo,
                 'nombre': material.nombre,
                 'categoria': material.categoria,
