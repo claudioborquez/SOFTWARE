@@ -786,54 +786,53 @@ def material_eliminar(request, material_id):
     material.delete()
     messages.success(request, 'Material eliminado correctamente')
     return redirect('material_list')
+
 @login_required
 def generar_informe_material(request):
     filtro_nombre = request.GET.get('filtro_nombre', '')
-    filtro_disponible = request.GET.get('filtro_disponible', '')
-    filtro_utilizada = request.GET.get('filtro_utilizada', '')
-    filtro_valor = request.GET.get('filtro_valor', '')
+    filtro_codigo = request.GET.get('filtro_codigo', '')
+    filtro_precio = request.GET.get('filtro_precio', '')
+    filtro_dimensiones = request.GET.get('filtro_dimensiones', '')
+    filtro_estado = request.GET.get('filtro_estado', '')
 
-    materials = material.objects.all()
+    materials = Material.objects.all()
 
     if filtro_nombre:
         materials = materials.filter(nombre__icontains=filtro_nombre)
 
-    if filtro_disponible:
+    if filtro_codigo:
+        materials = materials.filter(codigo__icontains=filtro_codigo)
+
+    if filtro_precio:
         try:
-            disponible = int(filtro_disponible)
-            materials = materials.filter(cantidad_disponible=disponible)
+            precio = float(filtro_precio)
+            materials = materials.filter(precio=precio)
         except ValueError:
             pass
 
-    if filtro_utilizada:
-        try:
-            utilizada = int(filtro_utilizada)
-            materials = materials.filter(cantidad_utilizada=utilizada)
-        except ValueError:
-            pass
+    if filtro_dimensiones:
+        materials = materials.filter(dimensiones__icontains=filtro_dimensiones)
 
-    if filtro_valor:
-        try:
-            valor = float(filtro_valor)
-            materials = materials.filter(valor_material=valor)
-        except ValueError:
-            pass
+    if filtro_estado:
+        materials = materials.filter(estado=filtro_estado)
 
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="informe.pdf"'
 
     doc = SimpleDocTemplate(response, pagesize=letter)
 
-    data = [['Nombre', 'Descripción', 'Cantidad Disponible', 'Cantidad Utilizada', 'Valor del material', 'Proveedor']]
+    data = [['Nombre', 'Código', 'Categoría', 'Color', 'Precio', 'Dimensiones', 'Cantidad', 'Estado']]
 
     for material in materials:
         data.append([
             material.nombre,
-            material.descripcion,
-            str(material.cantidad_disponible),
-            str(material.cantidad_utilizada),
-            str(material.valor_material),
-            material.proveedor.nombre  # Reemplazar "proveedor.nombre" con el atributo adecuado del modelo Proveedor
+            material.codigo,
+            material.categoria,
+            material.color,
+            str(material.precio),
+            material.dimensiones,
+            str(material.cantidad),
+            material.estado
         ])
 
     table_style = TableStyle([

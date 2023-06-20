@@ -126,13 +126,9 @@
    
     <div class="container">
         <div class="container ">
-            <h1 class="h3 col-8 mb-0 my-3 text-gray-800">Gestión de Material</h1>
+            <h1 class="h3 col-8 mb-0 my-3 text-gray-800">Gestión de Inventario</h1>
             <h1 class="h3 mb-0 text-gray-0"></h1>
         </div>
-        <form method="post" action="" class="col-12 col-lg-6 input-container-search my-auto me-3">
-            {% csrf_token %}
-            <input name="search" id="search" type="text" placeholder="Buscar material"/>
-        </form>
         <table class="table table-user">
             <thead>
                 <tr>
@@ -151,22 +147,32 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label for="filtro_nombre" class="form-label">Filtro por nombre:</label>
-                                    <input type="text" id="filtro_nombre" name="filtro_nombre" class="form-control" placeholder="Nombre">
+                                    <label for="filtro_codigo" class="form-label">Filtrar por código:</label>
+                                    <input type="text" id="filtro_codigo" name="filtro_codigo" class="form-control" placeholder="Filtro por código">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="filtro_disponible" class="form-label">Filtrar por disponible:</label>
-                                    <input type="text" id="filtro_disponible" name="filtro_disponible" class="form-control" placeholder="Filtro por disponible">
+                                    <label for="filtro_precio" class="form-label">Filtrar por precio:</label>
+                                    <input type="text" id="filtro_precio" name="filtro_precio" class="form-control" placeholder="Filtro por precio">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label for="filtro_utilizada" class="form-label">Filtrar por utilizada:</label>
-                                    <input type="text" id="filtro_utilizada" name="filtro_utilizada" class="form-control" placeholder="Filtro por utilizada">
+                                    <label for="filtro_dimensiones" class="form-label">Filtrar por dimensiones:</label>
+                                    <input type="text" id="filtro_dimensiones" name="filtro_dimensiones" class="form-control" placeholder="Filtro por dimensiones">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="filtro_estado" class="form-label">Filtrar por estado:</label>
+                                    <select id="filtro_estado" name="filtro_estado" class="form-control">
+                                        <option value="">Todos</option>
+                                        <option value="disponible">Disponible</option>
+                                        <option value="no_disponible">No disponible</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Generar Informe</button>
+                    </form>
+                </div>
                     </form>
                 </div>
             </thead>
