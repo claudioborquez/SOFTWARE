@@ -18,7 +18,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/interfaz.css' %}" rel="stylesheet">
+      <link href="{% static 'css/interfaz.css' %}" rel="stylesheet">
 
 </head>
  <!-- Contenido de la página -->
@@ -56,8 +56,8 @@
               <div id="collapseAD" class="collapse" aria-labelledby="headingAD" data-parent="#accordionSidebar">
                   <div class="bg-white py-2 collapse-inner rounded">
                       <h6 class="collapse-header">Administración:</h6>
-                      <a class="collapse-item" href="{% url 'gestion_group' %}">Gestión de Grupo</a>
-                      <a class="collapse-item" href="{% url 'gestion_user' %}">Gestión de Usuarios</a>   
+                      <a class="collapse-item" href="{% url 'gestion_group' %}">Gestión de grupo</a>
+                      <a class="collapse-item" href="{% url 'gestion_user' %}">Gestión de usuarios</a>   
 
                   </div>
               </div>
@@ -73,9 +73,10 @@
               <div id="collapseINV" class="collapse" aria-labelledby="headingINV" data-parent="#accordionSidebar">
                   <div class="bg-white py-2 collapse-inner rounded">
                       <h6 class="collapse-header">Inventario:</h6>
-                      <a class="collapse-item" href="{% url 'gestion_producto' %}">Gestión de Producto</a>
-                      <a class="collapse-item" href="{% url 'gestion_categoria' %}">Gestión de Categoría</a>   
-                      <a class="collapse-item" href="{% url 'gestion_insumo' %}">Gestión de Insumos</a>
+                      <a class="collapse-item" href="{% url 'gestion_producto' %}">Gestión de producto</a>
+                      <a class="collapse-item" href="{% url 'gestion_categoria' %}">Gestión de Categoría</a>
+                      <a class="collapse-item" href="{% url 'gestion_insumo' %}">Gestión de Insumos</a>    
+
                   </div>
               </div>
           </li>
@@ -90,8 +91,8 @@
             <div id="collapsePRO" class="collapse" aria-labelledby="headingPRO" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Proveedores:</h6>
-                    <a class="collapse-item" href="{% url 'gestion_proveedores' %}">Gestión de Proveedores</a>
-                    <a class="collapse-item" href="{% url 'orden_main' %}">Gestión de Orden</a>   
+                    <a class="collapse-item" href="{% url 'gestion_proveedores' %}">Gestión de proveedores</a>
+                    <a class="collapse-item" href="{% url 'orden_main' %}">Gestión de orden</a>   
 
                 </div>
             </div>
@@ -108,7 +109,6 @@
               <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Ventas:</h6>
                   <a class="collapse-item" href="{% url 'gestion_cliente' %}">Gestión de Clientes</a>
-                  <a class="collapse-item" href="{% url 'gestion_cotizacion' %}">Gestión de Cotizacion</a>
             </li>
 
 
@@ -119,40 +119,45 @@
             </nav>
             <!-- End of Topbar -->
 
+
+
             <!-- Begin Page Content -->
-           
+            <div class="container-fluid my-3 col-12">
                 <!-- Page Heading -->
-                
-               
-                    
-                
-                
-                <div class="container">
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4 ">
-                        <h1 class="h3 col-4 mb-0 my-3 text-gray-800">Gestión de proveedores</h1>
-                        <h1 class="h3 mb-0 text-gray-0"></h1>
+                <div class="d-sm-flex align-items-center justify-content-between mb-4 ">
+                    <h1 class="h3 col-4 mb-0 my-3 text-gray-800">Gestión de Ventas</h1>
+                    <h1 class="h3 mb-0 text-gray-0"></h1>
+                </div>
+                <div class="d-flex flex-column flex-lg-row my-5">
+                    <div class="my-auto d-flex flex-column flex-lg-row ms-lg-auto">
+                        <div class="feedback body--small normal"></div>
                     </div>
                     <form method="post" action="" class="col-12 col-lg-6 input-container-search my-auto me-3">
                         {% csrf_token %}
-                        <input name="search" id="search" type="text" placeholder="buscar proveedor" class="form-control" />
+                        <input name="search" id="search" type="text" placeholder="Buscar Cliente" class="form-control" />
                     </form>
+                </div>
+                <div class="d-flex justify-content-center mx-0-5--custom">
+                   
+                </div>
+                
+                <div class="table-container mt-5">
                     <table class="table table-user">
                         <thead>
                             <tr>
                                 <th width="40%" scope="col" align="left">Nombre</th>
-                                <th width="10%" scope="col" align="left">Rubro</th>
-                                <th width="20%" scope="col" align="left">Email</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for h in h_list_paginate %}
                             <tr>
-                                <td>{{ h.nombre }}</td>
-                                <td>{{ h.rubro }}</td>
-                                <td>{{ h.email }}</td>
+                                <td>{{h.nombre}}</td>
+                                <td>{{h.email}}</td>
+                                <td>{{h.telefono}}</td>
+                                <td>{{h.direccion}}</td>
                                 <td>
-                                    <a href="{% url 'proveedores_ver' h.id %}" class="btn btn-info">Editar</a>
+                                    <a href="{% url 'cliente_ver' h.id %}" class="btn btn-secundary">Ver</a>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -195,27 +200,25 @@
                     </div>
                     {% endif %}
                 </div>
-                
+        <!-- Paginación -->    
     </div>
-
+    
 </div>
-</main>
-      <!-- Bootstrap core JavaScript-->
-      <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-      <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-      <!-- Core plugin JavaScript-->
-      <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+<!-- Core plugin JavaScript-->
+<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
-      <!-- Custom scripts for all pages-->
-      <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+<!-- Custom scripts for all pages-->
+<script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
-      <!-- Page level plugins -->
-      <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+<!-- Page level plugins -->
+<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
 
-      <!-- Page level custom scripts -->
-      <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
-      <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>       
+<!-- Page level custom scripts -->
+<script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+<script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>       
 </div>
 </li>
-

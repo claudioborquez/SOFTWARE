@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Planeta Gol - Menu</title>
+    <title>CAA - Menu</title>
 
     <!-- Custom fonts for this template-->
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -18,22 +18,29 @@
 
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/interfaz.css' %}" rel="stylesheet">
 
 </head>
  <!-- Contenido de la página -->
  
-<body id="page-top">
+<body id="page-top" class="custom-bg">
+    
+    
 
   <!-- Page Wrapper -->
   <div id="wrapper">
       <!-- Sidebar -->
       <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
           <!-- Sidebar - Brand -->
-          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin_main">
-              <div class="sidebar-brand-icon rotate-n-15">
-                  <i class="fas fa-laugh-wink"></i>
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'admin_main' %}">
+              <div class="d-flex justify-content-center">
+                <img
+                  src="{% static 'imagenes/Logo.png' %}"
+                  alt="Logo"
+                  style="height: 4em"
+                />
               </div>
-              <div class="sidebar-brand-text mx-3">Planeta Gol </div>
+              <div class="sidebar-brand-text mx-3"> CAA </div>
           </a>
 
           <!-- Divider -->
@@ -46,95 +53,94 @@
           </div>
 
           <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAD"
-                  aria-expanded="true" aria-controls="collapseAD">
-                  <i class="fas fa-fw fa-folder"></i>
-                  <span>Administración</span>
-              </a>
-              <div id="collapseAD" class="collapse" aria-labelledby="headingAD" data-parent="#accordionSidebar">
-                  <div class="bg-white py-2 collapse-inner rounded">
-                      <h6 class="collapse-header">Administración:</h6>
-                      <a class="collapse-item" href="{% url 'gestion_group' %}">Gestión de grupo</a>
-                      <a class="collapse-item" href="{% url 'gestion_user' %}">Gestión de usuarios</a>   
-
-                  </div>
-              </div>
-          </li>
+          
           
           <!-- Nav Item - Charts -->
-          <li class="nav-item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseINV"
-                  aria-expanded="true" aria-controls="collapseINV">
-                  <i class="fas fa-fw fa-folder"></i>
-                  <span>Inventario</span>
-              </a>
-              <div id="collapseINV" class="collapse" aria-labelledby="headingINV" data-parent="#accordionSidebar">
-                  <div class="bg-white py-2 collapse-inner rounded">
-                      <h6 class="collapse-header">Inventario:</h6>
-                      <a class="collapse-item" href="{% url 'gestion_producto' %}">Gestión de producto</a>
-                      <a class="collapse-item" href="{% url 'gestion_categoria' %}">Gestión de Categoría</a>   
-                      <a class="collapse-item" href="{% url 'gestion_material' %}">Gestión de insumos</a> 
-
-                  </div>
-              </div>
-          </li>
+       
 
           <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePRO"
-                aria-expanded="true" aria-controls="collapsePRO">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Proveedores</span>
-            </a>
-            <div id="collapsePRO" class="collapse" aria-labelledby="headingPRO" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Proveedores:</h6>
-                    <a class="collapse-item" href="{% url 'gestion_proveedores' %}">Gestión de proveedores</a>
-                    <a class="collapse-item" href="{% url 'orden_main' %}">Gestión de orden</a>
-
-                </div>
-            </div>
-        </li>
+          
+           
+          <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Resto del código -->
+            
+            <!-- Nav Item - Ver Inventario -->
+            <li class="nav-item">
+                <a class="nav-link btn rounded-pill active mb-2" href="{% url 'gestion_material' %}">
+                    <span>Gestión de Material</span>
+                </a>
+            </li>
+        
+            <!-- Nav Item - Ver Inventario -->
+            <li class="nav-item">
+                <a class="nav-link nav-underline btn rounded-pill active mb-2" href="{% url 'gestion_cotizacion' %}">
+                    <span>Gestión de Cotizacion</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav-underline btn rounded-pill active mb-2" href="{% url 'proveedores_crear' %}">
+                    <span>Gestion de proveedores</span>
+                </a>
+            </li>
+            
+            
+        </ul>   
+        </div>
+        <style>
+            .nav-link.active {
+                background-color: #539131;
+                color: #000000;
+            }
+        </style>
+           
+        
+        
+        
+        
+        
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVEN"
-              aria-expanded="true" aria-controls="collapseVEN">
-              <i class="fas fa-fw fa-folder"></i>
-              <span>Ventas</span>
-          </a>
-          <div id="collapseVEN" class="collapse" aria-labelledby="headingVEN" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Ventas:</h6>
-                  <a class="collapse-item" href="{% url 'gestion_cliente' %}">Gestión de Cliente</a>
-                  <a class="collapse-item" href="{% url 'gestion_cotizacion' %}">Gestión de cotizacion</a>
-            </li>
+        
 
 
 
                 </ul>
+                <div id="content-wrapper" class="d-flex flex-column">
+                    <div id="content">
+                <nav class="navbar navbar-expand navbar-dark bg-dark topbar mb-4 static-top shadow">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                               
+                            </a>
+                        </li>
+                         
+
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                
+                            </a>
+                        </li>
+                        
+
+                        
+
+                        
+                    </ul>
+                </nav>
             
 
             </nav>
-            
-          </div>
-          <!-- Bootstrap core JavaScript-->
-          <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-          <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+            <!-- End of Topbar -->
 
-          <!-- Core plugin JavaScript-->
-          <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-
-          <!-- Custom scripts for all pages-->
-          <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
-
-          <!-- Page level plugins -->
-          <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
-
-          <!-- Page level custom scripts -->
-          <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
-          <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>       
-</div>
-</li>
-
+            <!-- Begin Page Content -->
+         
+                <!-- Page Heading -->
