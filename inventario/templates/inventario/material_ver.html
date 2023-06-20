@@ -74,8 +74,10 @@
                   <div class="bg-white py-2 collapse-inner rounded">
                       <h6 class="collapse-header">Inventario:</h6>
                       <a class="collapse-item" href="{% url 'gestion_producto' %}">Gestión de producto</a>
-                      <a class="collapse-item" href="{% url 'gestion_categoria' %}">Gestión de Categoría</a>  
-                      <a class="collapse-item" href="{% url 'gestion_insumo' %}">Gestión de insumos</a> 
+                      <a class="collapse-item" href="{% url 'gestion_categoria' %}">Gestión de Categoría</a>
+                      <a class="collapse-item" href="{% url 'gestion_material' %}">Gestión de materials</a>   
+   
+
                   </div>
               </div>
           </li>
@@ -92,8 +94,6 @@
                     <h6 class="collapse-header">Proveedores:</h6>
                     <a class="collapse-item" href="{% url 'gestion_proveedores' %}">Gestión de proveedores</a>
                     <a class="collapse-item" href="{% url 'orden_main' %}">Gestión de orden</a>   
-
-                </div>
             </div>
         </li>
 
@@ -120,77 +120,69 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-          
+            
                 <!-- Page Heading -->
                 
-
                 <div class="container">
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4 ">
-                        <h1 class="h3 col-8 mb-0 my-3 text-gray-800">Gestión de insumo</h1>
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 col-4 mb-0 my-3 text-gray-800">Gestión de Material</h1>
                         <h1 class="h3 mb-0 text-gray-0"></h1>
-                    </div>
-                    <form method="post" action="{% url 'insumo_save' %}">
+                    </div>   
+                    <form method="post" action="{% url 'material_edit' material_id=material_data.id|default:'' %}">
                         {% csrf_token %}
+                        <div class="col-12 col-lg-12 row row-cols-1 row-cols-md-1 g-2 p-lg-0-5">
                             <div class="mb-0 col-md-12">
-                                <label for="proveedor_id" class="form-label">Proveedor</label>
-                                <select name="proveedor_id" id="proveedor_id" class="form-control" required>
-                                    {% for proveedor in proveedores_listado %}
-                                        <option value="{{ proveedor.id }}">{{ proveedor.rubro }}</option>
-                                    {% endfor %}
-                                </select>
+                                <label for="codigo" class="form-label">Código</label>
+                                <input type="text" class="form-control" name="codigo" id="codigo" value="{{ material.codigo }}" placeholder="Código" required>
                             </div>
                             <div class="mb-0 col-md-12">
                                 <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required>
+                                <input type="text" class="form-control" name="nombre" id="nombre" value="{{ material.nombre }}" placeholder="Nombre" required>
                             </div>
                             <div class="mb-0 col-md-12">
-                                <label for="descripcion" class="form-label">Descripción</label>
-                                <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Descripción" required></textarea>
+                                <label for="categoria" class="form-label">Categoría</label>
+                                <input type="text" class="form-control" name="categoria" id="categoria" value="{{ material.categoria }}" placeholder="Categoría" required>
                             </div>
                             <div class="mb-0 col-md-12">
-                                <label for="cantidad_disponible" class="form-label">Cantidad Disponible</label>
-                                <input type="number" class="form-control" name="cantidad_disponible" id="cantidad_disponible" placeholder="Cantidad Disponible" required>
+                                <label for="color" class="form-label">Color</label>
+                                <input type="text" class="form-control" name="color" id="color" value="{{ material.color }}" placeholder="Color" required>
                             </div>
                             <div class="mb-0 col-md-12">
-                                <label for="cantidad_utilizada" class="form-label">Cantidad Utilizada</label>
-                                <input type="number" class="form-control" name="cantidad_utilizada" id="cantidad_utilizada" placeholder="Cantidad Utilizada" required oninput="calcularCantidadTotal()">
+                                <label for="precio" class="form-label">Precio</label>
+                                <input type="number" class="form-control" name="precio" id="precio" value="{{ material.precio }}" placeholder="Precio" required>
                             </div>
                             <div class="mb-0 col-md-12">
-                                <label for="valor_insumo" class="form-label">Valor de Insumo</label>
-                                <input type="number" class="form-control" name="valor_insumo" id="valor_insumo" placeholder="Valor Del Insumo" required oninput="calcularCantidadTotal()">
+                                <label for="dimensiones" class="form-label">Dimensiones</label>
+                                <input type="text" class="form-control" name="dimensiones" id="dimensiones" value="{{ material.dimensiones }}" placeholder="Dimensiones" required>
                             </div>
                             <div class="mb-0 col-md-12">
-                                <label for="cantidad_total" class="form-label">Cantidad Total</label>
-                                <div class="total-box">
-                                    <span id="cantidad_total" class="total-value"></span>
-                                </div>
+                                <label for="cantidad" class="form-label">Cantidad</label>
+                                <input type="number" class="form-control" name="cantidad" id="cantidad" value="{{ material.cantidad }}" placeholder="Cantidad" required>
                             </div>
-                            <div class="mb-0 col-md-12 my-3">
+                            <div class="mb-0 col-md-12">
+                                <label for="estado" class="form-label">Estado</label>
+                                <select name="estado" id="estado" class="form-control" required>
+                                    <option value="disponible" {% if material.estado == 'disponible' %}selected{% endif %}>Disponible</option>
+                                    <option value="no_disponible" {% if material.estado == 'no_disponible' %}selected{% endif %}>No disponible</option>
+                                </select>
+                            </div>
+                            <div class="col-3 my-3">
                                 <div class="d-flex justify-content-center mb-2">
-                                    <div class="col-3">
+                                    <div class="d-flex justify-content-center mx-0-5--custom">
                                         <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
                                     </div>
-                                    <div class="col-3">
-                                        <a href="{% url 'gestion_insumo' %}" class="btn btn-dark btn-block text-white">Volver</a>
+                                    <div class="col-5">
+                                        <a href="{% url 'material_eliminar' material_id=material_data.id %}" class="btn btn-danger">Eliminar</a>
+                                    </div>
+                                    <div class="col-2">
+                                        <a href="{% url 'material_list' %}" class="btn btn-dark">Volver</a>
                                     </div>  
                                 </div>                                  
                             </div>
                         </div>
                     </form>
+                             
                 </div>
-                <style>
-                    .total-box {
-                        border: 1px solid #ccc;
-                        padding: 10px;
-                        background-color: #f9f9f9;
-                    }
-                
-                    .total-value {
-                        font-weight: bold;
-                        font-size: 18px;
-                        color: #333;
-                    }
-                </style>
                 <!-- Bootstrap core JavaScript-->
                 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
                 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -206,14 +198,5 @@
                 
                 <!-- Page level custom scripts -->
                 <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
-                <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script> 
+                <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>       
                 
-                <script>
-                    // Función para calcular la cantidad total
-                    function calcularCantidadTotal() {
-                        var cantidadUtilizada = parseInt(document.getElementById('cantidad_utilizada').value);
-                        var valorInsumo = parseFloat(document.getElementById('valor_insumo').value);
-                        var cantidadTotal = cantidadUtilizada * valorInsumo;
-                        document.getElementById('cantidad_total').innerText = cantidadTotal.toFixed(2);
-                    }
-                </script>

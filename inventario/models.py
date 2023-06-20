@@ -58,3 +58,21 @@ class Reserva(models.Model):
     def __str__(self):
         return f"{self.cancha.nombre} "
 
+
+
+class Material(models.Model):
+    codigo = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=100)
+    categoria = models.CharField(max_length=100)
+    color = models.CharField(max_length=50)
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    dimensiones = models.CharField(max_length=100)
+    cantidad = models.PositiveIntegerField()
+    ESTADO_CHOICES = [
+        ("disponible", "Disponible"),
+        ("no_disponible", "No disponible"),
+    ]
+    estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default="disponible")
+
+    def __str__(self):
+        return self.nombre

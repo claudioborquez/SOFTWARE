@@ -6,7 +6,7 @@ urlpatterns= [
     path('inventario_main/',views.inventario_main,name="inventario_main"),
     path('gestion_producto/',views.gestion_producto,name="gestion_producto"),
     path('gestion_categoria/',views.gestion_categoria,name="gestion_categoria"),
-    path('gestion/insumo/', views.gestion_insumo, name='gestion_insumo'),
+    path('gestion/material/', views.gestion_material, name='gestion_material'),
     ##
     #Gestion de producto
     path('cancha/crear/', views.cancha_crear, name='cancha_crear'),
@@ -31,17 +31,15 @@ urlpatterns= [
     path('categoria/eliminar/<int:categoria_id>/', views.categoria_eliminar, name='categoria_eliminar'),
     path('categoria/reporte/', views.generar_reporte_categorias, name='generar_reporte_categorias'),
     path('categoria/dashboard', views.categoria_dashboard, name='categoria_dashboard'),
-    #Gestion de insumo
-    path('insumo/crear/', views.insumo_crear, name='insumo_crear'),
-    path('insumo/save/', views.insumo_save, name='insumo_save'),
-    path('insumo/ver/<int:insumo_id>/', views.insumo_ver, name='insumo_ver'),
-    path('insumo/list/', views.insumo_list, name='insumo_list'),
-    path('insumo/edit/<int:insumo_id>/', views.insumo_edit, name='insumo_edit'),
-    path('insumo/carga_masiva/', views.insumo_carga_masiva, name='insumo_carga_masiva'),
-    path('insumo/import_file/', views.insumo_import_file, name='insumo_import_file'),
-    path('insumo/carga_masiva_save/', views.insumo_carga_masiva_save, name='insumo_carga_masiva_save'),
-    path('generar/informe/insumo/', views.generar_informe_insumo, name='generar_informe_insumo'),
-    path('insumo/eliminar/<int:insumo_id>/', views.insumo_eliminar, name='insumo_eliminar'),
+    #Gestion de material
+    path('material/crear/', views.material_crear, name='material_crear'),
+    path('material/save/', views.material_save, name='material_save'),
+    path('material/ver/<int:material_id>/', views.material_ver, name='material_ver'),
+
+    path('material/list/', views.material_list, name='material_list'),
+    path('material/edit/<int:material_id>/', views.material_edit, name='material_edit'),
+    path('generar/informe/material/', views.generar_informe_material, name='generar_informe_material'),
+    path('material/eliminar/<int:material_id>/', views.material_eliminar, name='material_eliminar'),
     ####Clase Reserva#####
     path('inventario/reserva/crear/', views.reserva_crear, name='reserva_crear'),
     path('reserva/eliminar/<int:reserva_id>/', views.reserva_eliminar, name='reserva_eliminar'),

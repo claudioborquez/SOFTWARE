@@ -75,7 +75,7 @@
                       <h6 class="collapse-header">Inventario:</h6>
                       <a class="collapse-item" href="{% url 'gestion_producto' %}">Gestión de producto</a>
                       <a class="collapse-item" href="{% url 'gestion_categoria' %}">Gestión de Categoría</a>   
-                      <a class="collapse-item" href="{% url 'gestion_insumo' %}">Gestión de Insumos</a>   
+                      <a class="collapse-item" href="{% url 'gestion_material' %}">Gestión de materials</a>   
 
                   </div>
               </div>
@@ -126,7 +126,7 @@
                 
             <div class="container">
                 <div class="container ">
-                    <h1 class="h3 col-4 mb-0 my-3 text-gray-800">Gestión de insumo</h1>
+                    <h1 class="h3 col-4 mb-0 my-3 text-gray-800">Gestión de material</h1>
                     <h1 class="h3 mb-0 text-gray-0"></h1>
                 </div>
                 <div class="row">
@@ -134,16 +134,12 @@
                         <div class="container" style="width: auto;">
                             <div class="card-body">
                                 <div class="col-8">
-                                    <a href="{% url 'insumo_list' %}" class="btn btn-info btn-block text-white" >
-                                        Lista de insumos
+                                    <a href="{% url 'material_list' %}" class="btn btn-info btn-block text-white" >
+                                        Lista de Material
                                     </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="{% url 'insumo_crear' %}" class="btn btn-info btn-block text-white" >
+                                    <a href="{% url 'material_crear' %}" class="btn btn-info btn-block text-white" >
                                         Nuevo
-                                    </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="{% url 'insumo_carga_masiva' %}" class="btn btn-info btn-block text-white" >
-                                        Carga masiva
                                     </a>
                                 </div>
                             </div>

@@ -37,10 +37,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from inventario.models import Categoria
 from inventario.models import Cancha
-from inventario.models import Insumo
+from inventario.models import Material
 from inventario.models import Reserva
 from proveedores.models import Proveedor
-###Vista de app , producto , categoria , insumo
+###Vista de app , producto , categoria , material
 @login_required
 def inventario_main(request):
     profile = Profile.objects.get(user_id=request.user.id)
@@ -68,24 +68,24 @@ def gestion_categoria(request):
     template_name = 'inventario/gestion_categoria.html'
     return render(request,template_name,{'profile':profile})
 @login_required
-def gestion_insumo(request):
+def gestion_material(request):
     profile = Profile.objects.get(user_id=request.user.id)
     if profile.group_id != 1:
         messages.add_message(request, messages.INFO, 'Intenta ingresar a una area para la que no tiene permisos')
         return redirect('check_group_main')
-    template_name = 'inventario/gestion_insumo.html'
+    template_name = 'inventario/gestion_material.html'
     return render(request,template_name,{'profile':profile})
 #CRUD PARA PRODUCTO
 @login_required
 def cancha_crear(request):
     categoria_listado= Categoria.objects.all()
-    insumo_listado= Insumo.objects.all()
+    material_listado= material.objects.all()
     profile = Profile.objects.get(user_id=request.user.id)
     if profile.group_id != 1:
         messages.add_message(request, messages.INFO, 'Intenta ingresar a un área para la que no tienes permisos')
         return redirect('check_group_main')
     template_name = 'inventario/cancha_crear.html'
-    return render(request, template_name, {'profile': profile,'categoria_listado':categoria_listado,'insumo_listado':insumo_listado})
+    return render(request, template_name, {'profile': profile,'categoria_listado':categoria_listado,'material_listado':material_listado})
 
 def cancha_save(request):
     profile = Profile.objects.get(user_id=request.user.id)
@@ -98,20 +98,20 @@ def cancha_save(request):
         ubicacion = request.POST.get('ubicacion')
         disponible = request.POST.get('disponible')
         categoria_id = request.POST.get('categoria')
-        insumo_id = request.POST.get('insumo')
+        material_id = request.POST.get('material')
 
-        if not nombre or not ubicacion or not disponible or not categoria_id or not insumo_id:
+        if not nombre or not ubicacion or not disponible or not categoria_id or not material_id:
             messages.add_message(request, messages.INFO, 'Debes ingresar toda la información')
             return redirect('cancha_crear')
 
         categoria1 = Categoria.objects.get(id=categoria_id)
-        insumo1 = Insumo.objects.get(id=insumo_id)
+        material1 = material.objects.get(id=material_id)
         cancha_save = Cancha(
             nombre=nombre,
             ubicacion=ubicacion,
             disponible=bool(disponible),
             categoria=categoria1,
-            insumo=insumo1,
+            material=material1,
         )
         cancha_save.save()
         messages.add_message(request, messages.INFO, 'Cancha ingresada con éxito')
@@ -175,7 +175,7 @@ def cancha_list(request, page=None, search=None):
                 'ubicacion': cancha.ubicacion,
                 'disponible': cancha.disponible,
                 'categoria': cancha.categoria,
-                'insumo': cancha.insumo
+                'material': cancha.material
             })
             
     else:
@@ -188,7 +188,7 @@ def cancha_list(request, page=None, search=None):
                 'ubicacion': cancha.ubicacion,
                 'disponible': cancha.disponible,
                 'categoria': cancha.categoria,
-                'insumo': cancha.insumo
+                'material': cancha.material
             })
 
 
@@ -621,65 +621,68 @@ def categoria_dashboard(request):
     return render(request, template_name, {'categorias': categorias, 'porcentajes': porcentajes})
 
 
-#CRUD PARA Insumos
+#CRUD PARA materials
 
 @login_required
-def insumo_crear(request):
+def material_crear(request):
     proveedores_listado= Proveedor.objects.all()
     profile = Profile.objects.get(user_id=request.user.id)
     if profile.group_id != 1:
         messages.add_message(request, messages.INFO, 'Intenta ingresar a una area para la que no tiene permisos')
         return redirect('check_group_main')
-    template_name = 'inventario/insumo_crear.html'
+    template_name = 'inventario/material_crear.html'
     return render(request,template_name,{'profile':profile, "proveedores_listado": proveedores_listado})
 @login_required
-def insumo_save(request):
+def material_save(request):
     profile = Profile.objects.get(user_id=request.user.id)
     if profile.group_id != 1:
         messages.add_message(request, messages.INFO, 'Intenta ingresar a un área para la que no tiene permisos')
         return redirect('check_group_main')
 
     if request.method == 'POST':
+        codigo= request.POST.get('codigo')
         nombre = request.POST.get('nombre')
-        descripcion = request.POST.get('descripcion')
-        cantidad_disponible = request.POST.get('cantidad_disponible')
-        cantidad_utilizada = request.POST.get('cantidad_utilizada')
-        valor_insumo = request.POST.get('valor_insumo')
-        proveedor_id = request.POST.get('proveedor_id')  
+        categoria = request.POST.get('categoria')
+        color = request.POST.get('color')
+        precio = request.POST.get('precio')
+        dimensiones = request.POST.get('dimensiones')
+        cantidad = request.POST.get('cantidad')
+        estado = request.POST.get('estado')
 
-        if not descripcion or not cantidad_disponible or not cantidad_utilizada or not valor_insumo or not proveedor_id:
+        if not codigo or not nombre or not categoria or not color or not precio or not dimensiones or not cantidad or not estado:
             messages.add_message(request, messages.INFO, 'Debes ingresar toda la información')
-            return redirect('insumo_crear')
+            return redirect('material_crear')
 
-        proveedor = Proveedor.objects.get(id=proveedor_id)  
-        insumo = Insumo(
+        material = Material(
+            codigo=codigo,
             nombre=nombre,
-            descripcion=descripcion,
-            cantidad_disponible=cantidad_disponible,
-            cantidad_utilizada=cantidad_utilizada,
-            valor_insumo=valor_insumo,
-            proveedor=proveedor  
+            categoria=categoria,
+            color=color,
+            precio=precio,
+            dimensiones=dimensiones,
+            cantidad=cantidad,
+            estado=estado
         )
-        insumo.save()
-        messages.add_message(request, messages.INFO, 'Insumo ingresado con éxito')
-        return redirect('insumo_list')
+        material.save()
+        messages.add_message(request, messages.INFO, 'Material ingresado con éxito')
+        return redirect('material_list')
 
     else:
         messages.add_message(request, messages.INFO, 'Error en el método de envío')
         return redirect('check_group_main')
 
+
 @login_required
-def insumo_ver(request, insumo_id):
-    proveedores = Proveedor.objects.all()
+def material_ver(request, material_id):
     profile = Profile.objects.get(user_id=request.user.id)
     if profile.group_id != 1:
-        messages.add_message(request, messages.INFO, 'Intenta ingresar a una área para la que no tiene permisos')
+        messages.add_message(request, messages.INFO, 'Intenta ingresar a un área para la que no tienes permisos')
         return redirect('check_group_main')
-    insumo_data = Insumo.objects.get(pk=insumo_id)
-    template_name = 'inventario/insumo_ver.html'
-    return render(request, template_name, {'profile': profile, 'insumo_data': insumo_data, 'proveedores': proveedores})
+    material_data = Material.objects.get(pk=material_id)
+    template_name = 'inventario/material_ver.html'
+    return render(request, template_name, {'profile': profile, 'material_data': material_data})
 @login_required
-def insumo_list(request, page=None, search=None):
+def material_list(request, page=None, search=None):
     profile = Profile.objects.get(user_id=request.user.id)
     if profile.group_id != 1:
         messages.add_message(request, messages.INFO, 'Intenta ingresar a un área para la que no tiene permisos')
@@ -689,216 +692,127 @@ def insumo_list(request, page=None, search=None):
         page = request.GET.get('page')
     else:
         page = page
-
-    if request.GET.get('page') is None:
-        page = page
-    else:
-        page = request.GET.get('page')
 
     if search is None:
         search = request.GET.get('search')
     else:
         search = search
 
-    if request.GET.get('search') is None:
-        search = search
-    else:
-        search = request.GET.get('search')
-
     if request.method == 'POST':
         search = request.POST.get('search')
         page = None
-    if page is None:
-        page = request.GET.get('page')
-    else:
-        page = page
-    
-    insumo_list = []
+
+    material_list = []
     if search is None or search == "None":
-        insumo_count = Insumo.objects.filter().count()
-        insumo_list_array = Insumo.objects.all().order_by('nombre')
-        for insumo in insumo_list_array:
-            insumo_list.append({
-                'id': insumo.id,
-                'nombre': insumo.nombre,
-                'descripcion': insumo.descripcion,
-                'cantidad_disponible': insumo.cantidad_disponible,
-                'cantidad_utilizada': insumo.cantidad_utilizada,
-                'valor_insumo': insumo.valor_insumo,
-                'proveedor': insumo.proveedor
+        material_count = Material.objects.filter().count()
+        material_list_array = Material.objects.all().order_by('nombre')
+        for material in material_list_array:
+            material_list.append({
+                'codigo': material.codigo,
+                'nombre': material.nombre,
+                'categoria': material.categoria,
+                'color': material.color,
+                'precio': material.precio,
+                'dimensiones': material.dimensiones,
+                'cantidad': material.cantidad,
+                'estado': material.estado,
             })
 
     else:
-        insumo_count = Insumo.objects.filter(nombre__icontains=search).count()
-        insumo_list_array = Insumo.objects.filter(nombre__icontains=search).order_by('nombre')
-        for insumo in insumo_list_array:
-            insumo_list.append({
-                'id': insumo.id,
-                'nombre': insumo.nombre,
-                'descripcion': insumo.descripcion,
-                'cantidad_disponible': insumo.cantidad_disponible,
-                'cantidad_utilizada': insumo.cantidad_utilizada,
-                'valor_insumo': insumo.valor_insumo,
-                'proveedor': insumo.proveedor
+        material_count = Material.objects.filter(nombre__icontains=search).count()
+        material_list_array = Material.objects.filter(nombre__icontains=search).order_by('nombre')
+        for material in material_list_array:
+            material_list.append({
+                'codigo': material.codigo,
+                'nombre': material.nombre,
+                'categoria': material.categoria,
+                'color': material.color,
+                'precio': material.precio,
+                'dimensiones': material.dimensiones,
+                'cantidad': material.cantidad,
+                'estado': material.estado,
             })
 
-    paginator = Paginator(insumo_list, 20)
-    insumo_list_paginate = paginator.get_page(page)
+    paginator = Paginator(material_list, 20)
+    material_list_paginate = paginator.get_page(page)
 
-    template_name = 'inventario/insumo_list.html'
-    return render(request, template_name, {'template_name': template_name, 'insumo_list_paginate': insumo_list_paginate, 'paginator': paginator, 'page': page})
+    template_name = 'inventario/material_list.html'
+    return render(request, template_name, {'template_name': template_name, 'material_list_paginate': material_list_paginate, 'paginator': paginator, 'page': page})
 
 @login_required
-def insumo_edit(request, insumo_id):
+def material_edit(request, material_id):
     profile = Profile.objects.get(user_id=request.user.id)
     if profile.group_id != 1:
         messages.add_message(request, messages.INFO, 'Intenta ingresar a un área para la que no tiene permisos')
         return redirect('check_group_main')
 
-    insumo = get_object_or_404(Insumo, id=insumo_id)
+    material = get_object_or_404(Material, id=material_id)
 
     if request.method == 'POST':
-        insumo_nombre = request.POST.get('insumo_nombre')
-        insumo_descripcion = request.POST.get('insumo_descripcion')
-        insumo_cantidad_disponible = request.POST.get('insumo_cantidad_disponible')
-        insumo_cantidad_utilizada = request.POST.get('insumo_cantidad_utilizada')
-        insumo_valor_insumo = request.POST.get('insumo_valor_insumo')
-        proveedor_id = request.POST.get('proveedor_id')
+        codigo = request.POST.get('codigo')
+        nombre = request.POST.get('nombre')
+        categoria = request.POST.get('categoria')
+        color = request.POST.get('color')
+        precio = request.POST.get('precio')
+        dimensiones = request.POST.get('dimensiones')
+        cantidad = request.POST.get('cantidad')
+        estado = request.POST.get('estado')
 
-        insumo.nombre = insumo_nombre
-        insumo.descripcion = insumo_descripcion
-        insumo.cantidad_disponible = insumo_cantidad_disponible
-        insumo.cantidad_utilizada = insumo_cantidad_utilizada
-        insumo.valor_insumo = insumo_valor_insumo
-        insumo.proveedor_id = proveedor_id
-        insumo.save()
+        material.codigo = codigo
+        material.nombre = nombre
+        material.categoria = categoria
+        material.color = color
+        material.precio = precio
+        material.dimensiones = dimensiones
+        material.cantidad = cantidad
+        material.estado = estado
+        material.save()
 
-        return redirect('insumo_ver', insumo_id=insumo.id)
+        return redirect('material_ver', material_id=material.id)
     else:
-        insumo_data = Insumo.objects.get(pk=insumo_id)
-        template_name = 'inventario/insumo_ver.html'
-        return render(request, template_name, {'insumo_data': insumo_data})
-
+        template_name = 'inventario/material_edit.html'
+        return render(request, template_name, {'material': material})
 
 @login_required
-def insumo_carga_masiva(request):
-    profiles = Profile.objects.get(user_id=request.user.id)
-    if profiles.group_id != 1:
-        messages.add_message(request, messages.INFO, 'Intenta ingresar a un área para la que no tiene permisos')
-        return redirect('check_group_main')
-    template_name = 'inventario/insumo_carga_masiva.html'
-    return render(request, template_name, {'profiles': profiles})
-
-@login_required
-def insumo_import_file(request):
-    profiles = Profile.objects.get(user_id=request.user.id)
-    if profiles.group_id != 1:
-        messages.add_message(request, messages.INFO, 'Intenta ingresar a un área para la que no tiene permisos')
-        return redirect('check_group_main')
-    response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="archivo_importacion.xls"'
-    wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('insumo_carga_masiva')
-    row_num = 0
-    columns = ['Nombre', 'Descripción', 'Cantidad Disponible', 'Cantidad Utilizada', 'Valor Insumo', 'Proveedor']
-    font_style = xlwt.XFStyle()
-    font_style.font.bold = True
-    for col_num in range(len(columns)):
-        ws.write(row_num, col_num, columns[col_num], font_style)
-    font_style = xlwt.XFStyle()
-    for row in range(1):
-        row_num += 1
-        for col_num in range(5):
-            if col_num == 0:
-                ws.write(row_num, col_num, 'Ejemplo de nombre', font_style)
-            if col_num == 1:
-                ws.write(row_num, col_num, 'Ejemplo de descripción', font_style)
-            if col_num == 2:
-                ws.write(row_num, col_num, 10, font_style)
-            if col_num == 3:
-                ws.write(row_num, col_num, 5, font_style)
-            if col_num == 4:
-                ws.write(row_num, col_num, 10.0, font_style)
-    wb.save(response)
-    return response
-
-
-@login_required
-def insumo_carga_masiva_save(request):
-    profiles = Profile.objects.get(user_id=request.user.id)
-    if profiles.group_id != 1:
-        messages.add_message(request, messages.INFO, 'Intenta ingresar a un área para la que no tiene permisos')
-        return redirect('check_group_main')
-
-    if request.method == 'POST':
-        try:
-            data = pd.read_excel(request.FILES['myfile'])
-            df = pd.DataFrame(data)
-            count = 0
-            for item in df.itertuples():
-                nombre = str(item[1])
-                descripcion = str(item[2])
-                cantidad_disponible = int(item[3])
-                cantidad_utilizada = int(item[4])
-                valor_insumo = int(item[5])
-                proveedor_nombre = str(item[6])
-
-                proveedor, _ = Proveedor.objects.get_or_create(nombre=proveedor_nombre)
-                insumo = Insumo(
-                    nombre=nombre,
-                    descripcion=descripcion,
-                    cantidad_disponible=cantidad_disponible,
-                    cantidad_utilizada=cantidad_utilizada,
-                    valor_insumo=valor_insumo,
-                    proveedor=proveedor
-                )
-                insumo.save()
-                count += 1
-            messages.add_message(request, messages.INFO, f'Carga masiva finalizada, se importaron {count} registros')
-        except Exception as e:
-            messages.add_message(request, messages.ERROR, f'Error en la carga masiva: {str(e)}')
-    return redirect('insumo_carga_masiva')
-
-@login_required
-def insumo_eliminar(request, insumo_id):
+def material_eliminar(request, material_id):
     profile = Profile.objects.get(user_id=request.user.id)
     if profile.group_id != 1:
         messages.add_message(request, messages.INFO, 'Intenta ingresar a una area para la que no tiene permisos')
         return redirect('check_group_main')
-    insumo = get_object_or_404(Insumo, id=insumo_id)
-    insumo.delete()
-    messages.success(request, 'insumo eliminado correctamente')
-    return redirect('insumo_list')
+    material = get_object_or_404(Material, id=material_id)
+    material.delete()
+    messages.success(request, 'Material eliminado correctamente')
+    return redirect('material_list')
 @login_required
-def generar_informe_insumo(request):
+def generar_informe_material(request):
     filtro_nombre = request.GET.get('filtro_nombre', '')
     filtro_disponible = request.GET.get('filtro_disponible', '')
     filtro_utilizada = request.GET.get('filtro_utilizada', '')
     filtro_valor = request.GET.get('filtro_valor', '')
 
-    insumos = Insumo.objects.all()
+    materials = material.objects.all()
 
     if filtro_nombre:
-        insumos = insumos.filter(nombre__icontains=filtro_nombre)
+        materials = materials.filter(nombre__icontains=filtro_nombre)
 
     if filtro_disponible:
         try:
             disponible = int(filtro_disponible)
-            insumos = insumos.filter(cantidad_disponible=disponible)
+            materials = materials.filter(cantidad_disponible=disponible)
         except ValueError:
             pass
 
     if filtro_utilizada:
         try:
             utilizada = int(filtro_utilizada)
-            insumos = insumos.filter(cantidad_utilizada=utilizada)
+            materials = materials.filter(cantidad_utilizada=utilizada)
         except ValueError:
             pass
 
     if filtro_valor:
         try:
             valor = float(filtro_valor)
-            insumos = insumos.filter(valor_insumo=valor)
+            materials = materials.filter(valor_material=valor)
         except ValueError:
             pass
 
@@ -907,16 +821,16 @@ def generar_informe_insumo(request):
 
     doc = SimpleDocTemplate(response, pagesize=letter)
 
-    data = [['Nombre', 'Descripción', 'Cantidad Disponible', 'Cantidad Utilizada', 'Valor del Insumo', 'Proveedor']]
+    data = [['Nombre', 'Descripción', 'Cantidad Disponible', 'Cantidad Utilizada', 'Valor del material', 'Proveedor']]
 
-    for insumo in insumos:
+    for material in materials:
         data.append([
-            insumo.nombre,
-            insumo.descripcion,
-            str(insumo.cantidad_disponible),
-            str(insumo.cantidad_utilizada),
-            str(insumo.valor_insumo),
-            insumo.proveedor.nombre  # Reemplazar "proveedor.nombre" con el atributo adecuado del modelo Proveedor
+            material.nombre,
+            material.descripcion,
+            str(material.cantidad_disponible),
+            str(material.cantidad_utilizada),
+            str(material.valor_material),
+            material.proveedor.nombre  # Reemplazar "proveedor.nombre" con el atributo adecuado del modelo Proveedor
         ])
 
     table_style = TableStyle([
