@@ -145,7 +145,10 @@
                 <tr>
                     <th width="40%" scope="col" align="left">Nombre</th>
                     <th width="30%" scope="col" align="left">Fecha de Creación</th>
-                    <th width="20%" scope="col" align="left">Total</th>
+                    <th width="20%" scope="col" align="left">Materiales</th>
+                    <th width="20%" scope="col" align="left">Cantidad</th>
+                    <th width="20%" scope="col" align="left">Cliente</th>
+                    <th width="20%" scope="col" align="left">Estado</th>
                 </tr>
             </thead>
             <tbody>
@@ -153,15 +156,18 @@
                     <tr>
                         <td>{{ cotizacion.nombre }}</td>
                         <td>{{ cotizacion.fecha_creacion }}</td>
-                        <td>{{ cotizacion.total }}</td>
+                        <td>{{ cotizacion.materiales }}</td>
+                        <td>{{ cotizacion.cantidad }}</td>
+                        <td>{{ cotizacion.cliente }}</td>
+                        <td>{{ cotizacion.estado }}</td>
+
+
                         <td>
-                            <a href="{% url 'cotizacion_ver' cotizacion.id %}" class="btn btn-info">Editar</a>
+                            <a class="btn btn-success" href="{% url 'estado_cotizacion' cotizacion.id %}">Aprobar</a>
                         </td>
+                        
                         <td>
-                            <a class="btn btn-info" href="{% url 'detalle_crear' %}">Detalle</a>
-                        </td>
-                        <td>
-                            <a class="btn btn-info" href="{% url 'detalle_list'  %}">Ver Detalle </a>
+                            <a class="btn btn-danger" href="{% url 'cotizacion_eliminar' cotizacion.id %}">Rechazar</a>
                         </td>
                     </tr>
                 {% endfor %}

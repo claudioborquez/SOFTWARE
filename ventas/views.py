@@ -313,15 +313,21 @@ def gestion_cotizacion(request):
         return redirect('check_group_main')
     template_name = 'ventas/gestion_cotizacion.html'
     return render(request,template_name,{'profile':profile})
+
+
 def cotizacion_crear(request):
     cotizacion_listado= Cotizacion.objects.all()
     profile = Profile.objects.get(user_id=request.user.id)
     if profile.group_id != 1:
         messages.add_message(request, messages.INFO, 'Intenta ingresar a una area para la que no tiene permisos')
         return redirect('check_group_main')
+    clientes = Cliente.objects.all()
     template_name = 'ventas/cotizacion_crear.html'
-    return render(request,template_name,{"cotizacion_listado":cotizacion_listado})
+    return render(request,template_name,{"cotizacion_listado":cotizacion_listado,"clientes":clientes})
 @login_required
+
+
+
 def cotizacion_eliminar(request, cotizacion_id):
     profile = Profile.objects.get(user_id=request.user.id)
     if profile.group_id != 1:
@@ -341,22 +347,22 @@ def cotizacion_ver(request, cotizacion_id):
     template_name = 'ventas/cotizacion_ver.html'
     return render(request, template_name, {'profile': profile, 'cotizacion_data': cotizacion_data})
 @login_required
+
+
 def cotizacion_save(request):
+    
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
         fecha_creacion = request.POST.get('fecha_creacion')
-        total = request.POST.get('total')
         cliente_id = request.POST.get('cliente')
         materiales = request.POST.get('materiales')
         cantidad = request.POST.get('cantidad')
 
-        cliente = Cliente.objects.get(id=cliente_id)
-
+        clientes = Cliente.objects.get(id=cliente_id)
         cotizacion = Cotizacion(
             nombre=nombre,
             fecha_creacion=fecha_creacion,
-            total=total,
-            cliente=cliente,
+            cliente=clientes,
             materiales=materiales,
             cantidad=cantidad,
             estado='pendiente'
@@ -368,6 +374,9 @@ def cotizacion_save(request):
     else:
         messages.add_message(request, messages.INFO, 'Error en el método de envío')
         return redirect('check_group_main')
+    
+    
+    
 @login_required
 def cotizacion_list(request, page=None, search=None):
     if page is None:
@@ -412,7 +421,6 @@ def cotizacion_list(request, page=None, search=None):
                 'id': cotizacion.id,
                 'nombre': cotizacion.nombre,
                 'fecha_creacion': cotizacion.fecha_creacion,
-                'total': cotizacion.total,
                 'cliente': cotizacion.cliente,
                 'materiales': cotizacion.materiales,
                 'cantidad': cotizacion.cantidad,
@@ -446,17 +454,19 @@ def cotizacion_edit(request, cotizacion_id):
 
         fecha_creacion = request.POST.get('fecha_creacion')
         nombre = request.POST.get('nombre')
-        cliente_id = request.POST.get('cliente')
+        cliente = request.POST.get('cliente')
         materiales = request.POST.get('materiales')
         cantidad = request.POST.get('cantidad')
         estado = request.POST.get('estado')
+        
+        
 
-        cotizacion.fecha_creacion = fecha_creacion
-        cotizacion.nombre = nombre
-        cotizacion.cliente_id = cliente_id
-        cotizacion.materiales = materiales
-        cotizacion.cantidad = cantidad
-        cotizacion.estado = estado
+        fecha_creacion = fecha_creacion,
+        nombre = nombre,
+        cliente = Cliente.objects.get(id=cliente),
+        materiales = materiales,
+        cantidad = cantidad,
+        estado = estado
         cotizacion.save()
 
         return redirect('cotizacion_ver', cotizacion_id=cotizacion.id)
@@ -644,3 +654,10 @@ def detalle_edit(request, detalle_id):
         template_name = 'ventas/detalle_ver.html'
         return render(request, template_name, {'detalle_data': detalle})
 
+
+@login_required
+def estado_cotizacion(request, cotizacion_id):
+    Cotizacion.objects.filter(pk=cotizacion_id).update(estado="aprobada")
+    template_name = 'ventas/gestion_cotizacion.html'
+    return render(request, template_name, {'cotizacion_id': cotizacion_id})
+    
