@@ -46,5 +46,6 @@ urlpatterns= [
     path('detalle/list/', views.detalle_list, name='detalle_list'),
     path('detalle/edit/<int:detalle_id>/', views.detalle_edit, name='detalle_edit'),
     path('generar_informe/', generar_informe, name='generar_informe'),
+    path('estado_cotizacion/<int:cotizacion_id>', views.estado_cotizacion, name= 'estado_cotizacion')
 
 ]
